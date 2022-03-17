@@ -75,11 +75,11 @@ nav li {
 .current-page {
   background: rgb(10, 135, 155);
 }
-
+/* 
 .html-content img {
   max-width: 960px;
   width: 100%;
-}
+} */
 
 .html-content iframe {
   width: 100%;
@@ -102,9 +102,9 @@ nav li {
     max-width: 768px;
   }
 }
-
+/* 
 @media screen and (min-width: 960px) {
   .html-content img {
     max-width: 960px;
   }
-}
+} */

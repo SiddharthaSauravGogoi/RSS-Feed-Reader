@@ -1,6 +1,6 @@
 /**
  * Fn to format from xml to json.
- * @param {*} contents 
+ * @param {string} contents 
  * @returns {array} feedItems - list of object formatted content for feed display
  */
 

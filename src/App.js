@@ -21,6 +21,7 @@ export default function App() {
   const [feedContent, showFeedContentData] = useState("")
   const [shareLink, setShareLink] = useState("")
   const [loader, setLoader] = useState(false)
+  const [error, setError] = useState(false)
 
   const [currentPage, setCurrentPage] = useState()
   const [feedsPerPage] = useState(5)
@@ -31,7 +32,17 @@ export default function App() {
     setLoader(true)
     validateUrl(rssUrl)
     const res = await fetch(`https://api.allorigins.win/get?url=${rssUrl}`);
-    const { contents } = await res.json();
+    const {contents}  = await res.json();
+    // const { contents } = await res.json();
+    console.log(contents)
+
+    if(!contents.startsWith('<?xml')) {
+      setLoader(false)
+      return setError(true)
+    } else {
+      setError(false)
+    }
+    // return 
     setLoader(false)
     const feedItems = formatXMLtoJSON(contents)
     let feedListWithImage = addImageToFeedList(feedItems)
@@ -69,6 +80,18 @@ export default function App() {
   const indexOfLastPost = currentPage * feedsPerPage;
   const indexOfFirstPost = indexOfLastPost - feedsPerPage;
   let currentList = feedList.slice(indexOfFirstPost, indexOfLastPost);
+
+  if(error) return (
+    <div className="container">
+       <RSSUrlForm
+        showFeedContent={showFeedContent}
+        getRss={getRss}
+        setRssUrl={setRssUrl}
+        rssUrl={rssUrl}
+      />
+      <p> An error occurred </p>
+       </div>
+  )
 
   if (loader) return (
     <div className="container m-8">
